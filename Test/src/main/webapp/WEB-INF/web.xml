@@ -3,14 +3,14 @@
 	xmlns="http://xmlns.jcp.org/xml/ns/javaee" version="3.0"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
 
-	<display-name>ComboBox</display-name>
+	<display-name>Servlet</display-name>
 	<servlet>
-		<servlet-name>ComboBox</servlet-name>
-		<servlet-class>gestione.libreria2.ComboBoxLibri</servlet-class>
+		<servlet-name>Servlet</servlet-name>
+		<servlet-class>test.Servlet</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
-		<servlet-name>ComboBox</servlet-name>
-		<url-pattern>/ComboBox</url-pattern>
+		<servlet-name>Servlet</servlet-name>
+		<url-pattern>/Servlet</url-pattern>
 	</servlet-mapping>
 </web-app>

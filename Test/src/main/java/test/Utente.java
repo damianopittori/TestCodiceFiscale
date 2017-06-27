@@ -4,15 +4,12 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Query;
 import javax.persistence.Table;
 
 import com.mysql.jdbc.Statement;
@@ -665,6 +662,32 @@ public class Utente {
 		crud_services.jpaCreate(u);
 		crud_services.closeLogicaJPA();
 	}
+	
+	public String controlloDatiGiaEsistentiConSetCfECreazioneRiga(Utente u){
+		ServicesCrud crud_services = new ServicesCrud("jpa-example");
+		String controllo=null;
+		Query q = crud_services.jpaRead("select u from Utente u");
+		List<Utente> lista = q.getResultList();
+		System.out.println(lista);
+		for (int i = 0; i<lista.size(); i++){
+			if (lista.get(i).getNome().equals(u.getNome())&&lista.get(i).getCognome().equals(u.getCognome())
+					&&lista.get(i).getDataNascita().equals(u.getDataNascita())&&lista.get(i).getComune().equals(u.getComune())){
+				u.setCodFis(lista.get(i).getCodFis());
+				//System.out.println("cf non calcolato ma recuperato da db perche gia esistente");
+				controllo = "cf non calcolato ma recuperato da db perche gia esistente";
+				
+			}
+			}
+		if(u.getCodFis()==null){
+			u.creaESettaCF(u);
+			u.creaRigaDB(u);
+			//System.out.println("codice creato");
+			controllo="codice creato";
+		
+		}
+		return controllo;
+	}
+	
 
 	@Override
 	public String toString() {
